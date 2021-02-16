@@ -1,7 +1,9 @@
 {
   "name": "@quietmath/components",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Not web components. Vanilla JavaScript code for creating HTML components.",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "nyc": {
     "all": true,
     "check-coverage": true,
