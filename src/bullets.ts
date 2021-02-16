@@ -1,3 +1,7 @@
+/**
+ * @module quietmath/components
+ */
+
 function traverseList(elem: HTMLUListElement, level: number, order: string[]): void {
     if(level == 3) {
         level = 0;
