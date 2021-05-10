@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target":"es6",
+        "module": "commonjs",
+        "declaration": false,
+        "sourceMap": true,
+        "outDir": "./js/gen",
+        "rootDir": ".",
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true
+    },
+    "include": [
+        "./app.ts"
+    ]
+}
