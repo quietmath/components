@@ -4,7 +4,7 @@
         "module": "commonjs",
         "declaration": false,
         "sourceMap": true,
-        "outDir": "./js/gen",
+        "outDir": "./js",
         "rootDir": ".",
         "skipLibCheck": true,
         "skipDefaultLibCheck": true

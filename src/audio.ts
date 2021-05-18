@@ -2,27 +2,44 @@
  * @module quietmath/components
  */
 
-export const createAudioPlayer = (audioPlayerID: string, defaultSource?: string): void => {
-    const audio: HTMLAudioElement = document.querySelector(`${ audioPlayerID }`);
+export const createAudioPlayer = (audioContainerID: string, defaultSource?: string): HTMLDivElement => {
+    const audioContainer: HTMLDivElement = document.querySelector(`#${ audioContainerID }`);
+    const audioPlayer: HTMLAudioElement = audioContainer.querySelector('audio');
     if(defaultSource != null) {
-        audio.src = defaultSource;
+        audioPlayer.src = defaultSource;
     }
-    if(audio.controls == null) {
-        audio.controls = true;
+    if(audioPlayer.controls == null) {
+        audioPlayer.controls = true;
     }
-    audio.style.display = 'block';
+    audioPlayer.style.display = 'block';
+    return audioContainer;
 };
 
-export const createPlaylist = (audioPlayer: HTMLAudioElement, playlistContainerID: string, playlistID: string): void => {
-    const playlistContainer: HTMLDivElement = document.querySelector(`${ playlistContainerID }`);
-    const playlist: HTMLDataListElement = document.querySelector(`${ playlistID }`);
+export const createPlaylist = (audioContainer: HTMLDivElement, playlistID: string): void => {
+    const audioPlayer = audioContainer.querySelector('audio');
+    const playlist: HTMLDataListElement = document.querySelector(`#${ playlistID }`);
     const anchorNodes: NodeListOf<HTMLElement> = playlist.querySelectorAll('dt');
     const anchors = Array.from(anchorNodes);
     anchors.forEach((anchor: HTMLDataListElement) => {
         anchor.addEventListener('click', function(): void {
-            const source = anchor.getAttribute('data-source');
+            const source: string = anchor.getAttribute('data-source');
+            const img: string = anchor.getAttribute('data-cover-img');
+            const title: string = anchor.getAttribute('data-title') || anchor.innerText;
             audioPlayer.pause();
             audioPlayer.src = source;
+            const audioPlayerCover: HTMLDivElement = audioContainer.querySelector('.audio-player-cover');
+            if(audioPlayerCover) {
+                const coverImage: HTMLImageElement = document.createElement('img');
+                coverImage.src = img;
+                coverImage.title = title;
+                coverImage.alt = title;
+                audioPlayerCover.innerHTML = '';
+                audioPlayerCover.appendChild(coverImage);
+            }
+            const audioPlayerTitle: HTMLDivElement = audioContainer.querySelector('.audio-player-title');
+            if(audioPlayerTitle) {
+                audioPlayerTitle.innerText = title;
+            }
             audioPlayer.play();
         });
     });

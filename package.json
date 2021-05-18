@@ -37,13 +37,16 @@
   },
   "homepage": "https://github.com/quietmath/components#readme",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json && tsc -p ./example/tsconfig.json && browserify ./example/js/gen/app.js --debug | exorcist ./example/js/gen/bundle.js.map > ./example/js/gen/bundle.js",
+    "start": "npm run build && serve",
+    "build": "tsc -p ./tsconfig.json && jake copy-js && tsc -p ./examples/tsconfig.json && browserify ./examples/js/app.js --debug | exorcist ./examples/js/bundle.js.map > ./examples/js/bundle.js",
     "test": "nyc mocha ./**/test/*.test.js --ignore ./**/node_modules/**",
     "eslint": "eslint ./src/*.ts ./src/**/*.ts",
     "eslint-fix": "eslint ./src/*.ts ./src/**/*.ts --fix"
   },
   "dependencies": {},
   "devDependencies": {
+    "@types/fs-extra": "^9.0.11",
+    "@types/jake": "0.0.32",
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.28",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
@@ -51,6 +54,8 @@
     "browserify": "^17.0.0",
     "eslint": "^7.20.0",
     "exorcist": "^1.0.1",
+    "fs-extra": "^10.0.0",
+    "jake": "^10.8.2",
     "madge": "^4.0.2",
     "mocha": "^8.3.0",
     "nyc": "^15.1.0",
