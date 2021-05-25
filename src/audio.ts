@@ -27,7 +27,7 @@ export const createPlaylist = (audioContainer: HTMLDivElement, playlistID: strin
             const title: string = anchor.getAttribute('data-title') || anchor.innerText;
             audioPlayer.pause();
             audioPlayer.src = source;
-            const audioPlayerCover: HTMLDivElement = audioContainer.querySelector('.audio-player-cover');
+            const audioPlayerCover: HTMLDivElement = audioContainer.querySelector('#audio-player-cover');
             if(audioPlayerCover) {
                 const coverImage: HTMLImageElement = document.createElement('img');
                 coverImage.src = img;
@@ -36,7 +36,7 @@ export const createPlaylist = (audioContainer: HTMLDivElement, playlistID: strin
                 audioPlayerCover.innerHTML = '';
                 audioPlayerCover.appendChild(coverImage);
             }
-            const audioPlayerTitle: HTMLDivElement = audioContainer.querySelector('.audio-player-title');
+            const audioPlayerTitle: HTMLDivElement = audioContainer.querySelector('#audio-player-title');
             if(audioPlayerTitle) {
                 audioPlayerTitle.innerText = title;
             }

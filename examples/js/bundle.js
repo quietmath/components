@@ -30,7 +30,7 @@ const createPlaylist = (audioContainer, playlistID) => {
             const title = anchor.getAttribute('data-title') || anchor.innerText;
             audioPlayer.pause();
             audioPlayer.src = source;
-            const audioPlayerCover = audioContainer.querySelector('.audio-player-cover');
+            const audioPlayerCover = audioContainer.querySelector('#audio-player-cover');
             if (audioPlayerCover) {
                 const coverImage = document.createElement('img');
                 coverImage.src = img;
@@ -39,7 +39,7 @@ const createPlaylist = (audioContainer, playlistID) => {
                 audioPlayerCover.innerHTML = '';
                 audioPlayerCover.appendChild(coverImage);
             }
-            const audioPlayerTitle = audioContainer.querySelector('.audio-player-title');
+            const audioPlayerTitle = audioContainer.querySelector('#audio-player-title');
             if (audioPlayerTitle) {
                 audioPlayerTitle.innerText = title;
             }
