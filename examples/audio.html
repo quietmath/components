@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="/audio.css" />
   </head>
   <style media="screen">
+    #audio-container {
+      border: 1px solid #ccc;
+      width: 30rem;
+      padding: 0.5rem;
+    }
     .audio-player {
       display: flex;
       flex-direction: row;
@@ -14,39 +19,103 @@
       justify-content: space-between;
       align-items: center;
     }
+    .audio-player .break {
+      flex-basis: 100%;
+    }
+    #audio-player-cover img {
+      max-width: 5rem;
+      flex-basis: 20%;
+    }
+    #audio-player-title {
+      font-weight: 700;
+      font-size: large;
+      flex-basis: 70%;
+    }
+    #audio-player-date {
+      font-style: italic;
+      font-size: small;
+      margin: 0.25rem 0 0.25rem 0;
+      text-align: right;
+    }
+    #audio-player-summary {
+      font-size: medium;
+      margin: 0.25rem 0 0.25rem 0;
+    }
+    audio.audio-player {
+      margin-top: 2rem;
+      flex-basis: 100%;
+    }
+    .audio-playlist dl {
+      display: flex;
+      flex-flow: row wrap;
+      border: solid #ccc;
+      border-width: 1px 1px 0 1px;
+    }
+    .audio-playlist dt {
+      cursor: pointer;
+      flex-basis: 60%;
+      flex-grow: 1;
+      margin-left: 0.25rem;
+      border-bottom: 1px solid #ccc;
+      padding: 0.25rem;
+    }
+    .audio-playlist dt:hover {
+      background-color: #ccc;
+    }
+    .audio-playlist dd {
+      flex-basis: 30%;
+      margin: 0;
+      text-align: right;
+      margin-right: 0.25rem;
+      border-bottom: 1px solid #ccc;
+      padding: 0.25rem;
+    }
   </style>
   <body>
-    <div id="audio-player" class="audio-player">
-      <div id="audio-player-cover" class="audio-player"></div>
-      <div id="audio-player-title" class="audio-player"></div>
-      <audio class="audio-player" controls>
-        <source src="" type="audio/mpeg">
-        Audio tag is not supported in this browser.
-      </audio>
+    <div id="audio-container">
+      <div id="audio-player" class="audio-player">
+        <div id="audio-player-cover" class="audio-player">
+          <img src="https://apotheosis.cloud/images/apotheosis-logo-podcast.png" alt="Apotheosis" />
+        </div>
+        <div id="audio-player-title" class="audio-player">
+          Apotheosis Trailer
+          <div id="audio-player-date" class="audio-player"></div>
+        </div>
+        <div id="audio-player-summary" class="audio-player break"></div>
+        <audio class="audio-player" controls>
+          <source src="" type="audio/mpeg">
+          Audio tag is not supported in this browser.
+        </audio>
+      </div>
+      <div id="playlist-container" class="audio-playlist">
+        <dl id="playlist" class="audio-playlist">
+          <dt
+            data-source="https://archive.org/download/apotheosis-003/apotheosis-003.mp3"
+            data-cover-img="https://apotheosis.cloud/images/apotheosis-logo-podcast.png"
+            data-title="Giving the Finger to the Bird"
+            data-summary=""
+            data-pub=""
+            >Giving the Finger to the Bird</dt>
+          <dd><a href="#">read on codepunk</a></dd>
+          <dt
+            data-source="https://archive.org/download/apotheosis-002/apotheosis-002.mp3"
+            data-cover-img="https://apotheosis.cloud/images/apotheosis-logo-podcast.png"
+            data-title="Dreaming of Gopher's Past with the Gemini Protocol"
+            data-summary=""
+            data-pub=""
+            >Dreaming of Gopher's Past with the Gemini Protocol</dt>
+          <dd><a href="#">read on codepunk</a></dd>
+          <dt
+            data-source="https://archive.org/download/apotheosis-001/apotheosis-001.mp3"
+            data-cover-img="https://apotheosis.cloud/images/apotheosis-logo-podcast.png"
+            data-title="Cyberia Old and New"
+            data-summary=""
+            data-pub=""
+            >Cyberia Old and New</dt>
+          <dd><a href="#">read on codepunk</a></dd>
+        </dl> 
+      </div>
     </div>
-
-    <div id="playlist-container" class="audio-playlist">
-      <dl id="playlist" class="audio-playlist">
-        <dt
-          data-source="https://archive.org/download/apotheosis-003/apotheosis-003.mp3"
-          data-cover-img="https://apotheosis.cloud/images/apotheosis-logo-podcast.png"
-          data-title="Giving the Finger to the Bird"
-          >Giving the Finger to the Bird</dt>
-        <dd>read on codepunk</dd>
-        <dt
-          data-source="https://archive.org/download/apotheosis-002/apotheosis-002.mp3"
-          data-cover-img="https://apotheosis.cloud/images/apotheosis-logo-podcast.png"
-          data-title="Dreaming of Gopher's Past with the Gemini Protocol"
-          >Dreaming of Gopher's Past with the Gemini Protocol</dt>
-        <dd>read on codepunk</dd>
-        <dt
-          data-source="https://archive.org/download/apotheosis-001/apotheosis-001.mp3"
-          data-cover-img="https://apotheosis.cloud/images/apotheosis-logo-podcast.png"
-          data-title="Cyberia Old and New">Cyberia Old and New</dt>
-        <dd>read on codepunk</dd>
-      </dl> 
-    </div>
-
     <script type="text/javascript" src="/js/bundle.js"></script>
   </body>
 </html>

@@ -25,6 +25,8 @@ export const createPlaylist = (audioContainer: HTMLDivElement, playlistID: strin
             const source: string = anchor.getAttribute('data-source');
             const img: string = anchor.getAttribute('data-cover-img');
             const title: string = anchor.getAttribute('data-title') || anchor.innerText;
+            const pubDate: string = anchor.getAttribute('data-pub');
+            const summary: string = anchor.getAttribute('data-summary');
             audioPlayer.pause();
             audioPlayer.src = source;
             const audioPlayerCover: HTMLDivElement = audioContainer.querySelector('#audio-player-cover');
@@ -38,7 +40,23 @@ export const createPlaylist = (audioContainer: HTMLDivElement, playlistID: strin
             }
             const audioPlayerTitle: HTMLDivElement = audioContainer.querySelector('#audio-player-title');
             if(audioPlayerTitle) {
-                audioPlayerTitle.innerText = title;
+                const audioPlayerDate: HTMLDivElement = audioContainer.querySelector('#audio-player-date');
+                let dateDiv: HTMLDivElement;
+                if(audioPlayerDate) {
+                    dateDiv = document.createElement('div');
+                    dateDiv.setAttribute('id', 'audio-player-date');
+                    dateDiv.className = 'audio-player';
+                    dateDiv.innerText = pubDate;
+                }
+                audioPlayerTitle.innerText = `${ title }`;
+                if(dateDiv) {
+                    audioPlayerTitle.appendChild(document.createElement('br'));
+                    audioPlayerTitle.appendChild(dateDiv);
+                }
+            }
+            const audioPlayerSummary: HTMLDivElement = audioContainer.querySelector('#audio-player-summary');
+            if(audioPlayerSummary) {
+                audioPlayerSummary.innerText = summary;
             }
             audioPlayer.play();
         });
