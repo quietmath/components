@@ -11,12 +11,10 @@ function traverseList(elem: HTMLUListElement, level: number, order: string[]): v
     Array.from(children).forEach((el: HTMLUListElement) => traverseList(el, level + 1, order));
 }
 
-export const rotateListStyleType = (order?: string[]): void => {
+export const rotateListStyleType = (selector?: string, order?: string[]): void => {
+    selector = selector || 'ul';
     order = order || ['disc', 'circle', 'square'];
-    const prose: HTMLElement = document.querySelector('.ProseMirror');
-    if(prose != null) {
-        const uls: NodeListOf<HTMLUListElement> = prose.querySelectorAll('ul');
-        const arr: HTMLUListElement[] = Array.from(uls).filter((e: HTMLUListElement) => e.closest('li') == null);
-        arr.forEach((elem: HTMLUListElement): void => traverseList(elem, 0, order));
-    }    
+    const uls: NodeListOf<HTMLUListElement> = document.querySelectorAll(selector);
+    const arr: HTMLUListElement[] = Array.from(uls).filter((e: HTMLUListElement) => e.closest('li') == null);
+    arr.forEach((elem: HTMLUListElement): void => traverseList(elem, 0, order));
 };

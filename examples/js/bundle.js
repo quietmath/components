@@ -4,50 +4,69 @@
  * @module quietmath/components
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPlaylist = exports.createAudioPlayer = void 0;
+exports.createAudioPlayer = exports.AudioPlayer = void 0;
+class AudioPlayer {
+    constructor(opts) {
+        this._opts = opts;
+        const { ContainerID, DefaultSource } = this._opts;
+        const audioContainer = document.querySelector(`#${ContainerID}`);
+        const audioPlayer = audioContainer.querySelector('audio');
+        if (DefaultSource != null) {
+            audioPlayer.src = DefaultSource;
+        }
+        if (audioPlayer.controls == null) {
+            audioPlayer.controls = true;
+        }
+        audioPlayer.style.display = 'block';
+        this._audioContainer = audioContainer;
+    }
+    withPlaylist(playlistID) {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const self = this;
+        const audioPlayer = self._audioContainer.querySelector('audio');
+        const playlist = document.querySelector(`#${playlistID}`);
+        const anchorNodes = playlist.querySelectorAll('dt');
+        const anchors = Array.from(anchorNodes);
+        anchors.forEach((anchor) => {
+            anchor.addEventListener('click', function () {
+                const source = anchor.getAttribute('data-source');
+                const img = anchor.getAttribute('data-cover-img');
+                const title = anchor.getAttribute('data-title') || anchor.innerText;
+                const pubDate = anchor.getAttribute('data-pub');
+                const summary = anchor.getAttribute('data-summary');
+                audioPlayer.pause();
+                audioPlayer.src = source;
+                const audioPlayerCover = self._audioContainer.querySelector('#audio-player-cover');
+                if (audioPlayerCover) {
+                    const coverImage = document.createElement('img');
+                    coverImage.src = img;
+                    coverImage.title = title;
+                    coverImage.alt = title;
+                    audioPlayerCover.innerHTML = '';
+                    audioPlayerCover.appendChild(coverImage);
+                }
+                const audioPlayerTitle = self._audioContainer.querySelector('#audio-player-title');
+                if (audioPlayerTitle) {
+                    audioPlayerTitle.innerText = title;
+                }
+                const audioPlayerDate = self._audioContainer.querySelector('#audio-player-date');
+                if (audioPlayerDate) {
+                    audioPlayerDate.innerText = pubDate;
+                }
+                const audioPlayerSummary = self._audioContainer.querySelector('#audio-player-summary');
+                if (audioPlayerSummary) {
+                    audioPlayerSummary.innerText = summary;
+                }
+                audioPlayer.play();
+            });
+        });
+    }
+}
+exports.AudioPlayer = AudioPlayer;
 const createAudioPlayer = (audioContainerID, defaultSource) => {
-    const audioContainer = document.querySelector(`#${audioContainerID}`);
-    const audioPlayer = audioContainer.querySelector('audio');
-    if (defaultSource != null) {
-        audioPlayer.src = defaultSource;
-    }
-    if (audioPlayer.controls == null) {
-        audioPlayer.controls = true;
-    }
-    audioPlayer.style.display = 'block';
-    return audioContainer;
+    return new AudioPlayer({ ContainerID: audioContainerID, DefaultSource: defaultSource });
 };
 exports.createAudioPlayer = createAudioPlayer;
-const createPlaylist = (audioContainer, playlistID) => {
-    const audioPlayer = audioContainer.querySelector('audio');
-    const playlist = document.querySelector(`#${playlistID}`);
-    const anchorNodes = playlist.querySelectorAll('dt');
-    const anchors = Array.from(anchorNodes);
-    anchors.forEach((anchor) => {
-        anchor.addEventListener('click', function () {
-            const source = anchor.getAttribute('data-source');
-            const img = anchor.getAttribute('data-cover-img');
-            const title = anchor.getAttribute('data-title') || anchor.innerText;
-            audioPlayer.pause();
-            audioPlayer.src = source;
-            const audioPlayerCover = audioContainer.querySelector('#audio-player-cover');
-            if (audioPlayerCover) {
-                const coverImage = document.createElement('img');
-                coverImage.src = img;
-                coverImage.title = title;
-                coverImage.alt = title;
-                audioPlayerCover.innerHTML = '';
-                audioPlayerCover.appendChild(coverImage);
-            }
-            const audioPlayerTitle = audioContainer.querySelector('#audio-player-title');
-            if (audioPlayerTitle) {
-                audioPlayerTitle.innerText = title;
-            }
-            audioPlayer.play();
-        });
-    });
-};
-exports.createPlaylist = createPlaylist;
 
 },{}],2:[function(require,module,exports){
 "use strict";
@@ -126,8 +145,8 @@ __exportStar(require("./figure"), exports);
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../dist/index");
-const container = index_1.createAudioPlayer('audio-player', 'https://archive.org/download/apotheosis-trailer/apotheosis-trailer.mp3');
-index_1.createPlaylist(container, 'playlist');
+index_1.createAudioPlayer('audio-player', 'https://archive.org/download/apotheosis-trailer/apotheosis-trailer.mp3')
+    .withPlaylist('playlist');
 
 },{"../dist/index":4}]},{},[5])
 //# sourceMappingURL=bundle.js.map
