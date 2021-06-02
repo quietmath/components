@@ -43,7 +43,9 @@
     "eslint": "eslint ./src/*.ts ./src/**/*.ts",
     "eslint-fix": "eslint ./src/*.ts ./src/**/*.ts --fix"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@quietmath/proto": "^1.2.1"
+  },
   "devDependencies": {
     "@types/fs-extra": "^9.0.11",
     "@types/jake": "0.0.32",

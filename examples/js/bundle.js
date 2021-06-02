@@ -83,14 +83,12 @@ function traverseList(elem, level, order) {
     const children = elem.querySelectorAll(':scope > li > ul');
     Array.from(children).forEach((el) => traverseList(el, level + 1, order));
 }
-const rotateListStyleType = (order) => {
+const rotateListStyleType = (selector, order) => {
+    selector = selector || 'ul';
     order = order || ['disc', 'circle', 'square'];
-    const prose = document.querySelector('.ProseMirror');
-    if (prose != null) {
-        const uls = prose.querySelectorAll('ul');
-        const arr = Array.from(uls).filter((e) => e.closest('li') == null);
-        arr.forEach((elem) => traverseList(elem, 0, order));
-    }
+    const uls = document.querySelectorAll(selector);
+    const arr = Array.from(uls).filter((e) => e.closest('li') == null);
+    arr.forEach((elem) => traverseList(elem, 0, order));
 };
 exports.rotateListStyleType = rotateListStyleType;
 
