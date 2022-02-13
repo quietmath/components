@@ -13,8 +13,8 @@ export class AudioPlayer {
     constructor(opts: AudioPlayerOptions) {
         this._opts = opts;
         const { ContainerID, DefaultSource } = this._opts;
-        const audioContainer: HTMLDivElement = document.querySelector(`#${ ContainerID }`);
-        const audioPlayer: HTMLAudioElement = audioContainer.querySelector('audio');
+        const audioContainer = document.querySelector(`#${ ContainerID }`) as HTMLDivElement;
+        const audioPlayer = audioContainer.querySelector('audio') as HTMLAudioElement;
         if(DefaultSource != null) {
             audioPlayer.src = DefaultSource;
         }
@@ -27,20 +27,20 @@ export class AudioPlayer {
     public withPlaylist(playlistID: string): void {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
-        const audioPlayer = self._audioContainer.querySelector('audio');
-        const playlist: HTMLDataListElement = document.querySelector(`#${ playlistID }`);
+        const audioPlayer = self._audioContainer.querySelector('audio') as HTMLAudioElement;
+        const playlist = document.querySelector(`#${ playlistID }`) as HTMLDataListElement;
         const anchorNodes: NodeListOf<HTMLElement> = playlist.querySelectorAll('dt');
         const anchors = Array.from(anchorNodes);
-        anchors.forEach((anchor: HTMLDataListElement) => {
+        anchors.forEach((anchor: HTMLElement) => {
             anchor.addEventListener('click', function(): void {
-                const source: string = anchor.getAttribute('data-source');
-                const img: string = anchor.getAttribute('data-cover-img');
-                const title: string = anchor.getAttribute('data-title') || anchor.innerText;
-                const pubDate: string = anchor.getAttribute('data-pub');
-                const summary: string = anchor.getAttribute('data-summary');
+                const source = anchor.getAttribute('data-source') as string;
+                const img = anchor.getAttribute('data-cover-img') as string;
+                const title = anchor.getAttribute('data-title') || anchor.innerText as string;
+                const pubDate = anchor.getAttribute('data-pub') as string;
+                const summary = anchor.getAttribute('data-summary') as string;
                 audioPlayer.pause();
                 audioPlayer.src = source;
-                const audioPlayerCover: HTMLDivElement = self._audioContainer.querySelector('#audio-player-cover');
+                const audioPlayerCover = self._audioContainer.querySelector('#audio-player-cover') as HTMLDivElement;
                 if(audioPlayerCover) {
                     const coverImage: HTMLImageElement = document.createElement('img');
                     coverImage.src = img;
@@ -49,15 +49,15 @@ export class AudioPlayer {
                     audioPlayerCover.innerHTML = '';
                     audioPlayerCover.appendChild(coverImage);
                 }
-                const audioPlayerTitle: HTMLDivElement = self._audioContainer.querySelector('#audio-player-title');
+                const audioPlayerTitle = self._audioContainer.querySelector('#audio-player-title') as HTMLDivElement;
                 if(audioPlayerTitle) {
                     audioPlayerTitle.innerText = title;
                 }
-                const audioPlayerDate: HTMLDivElement = self._audioContainer.querySelector('#audio-player-date');
+                const audioPlayerDate = self._audioContainer.querySelector('#audio-player-date') as HTMLDivElement;
                 if(audioPlayerDate) {
                     audioPlayerDate.innerText = pubDate;
                 }
-                const audioPlayerSummary: HTMLDivElement = self._audioContainer.querySelector('#audio-player-summary');
+                const audioPlayerSummary = self._audioContainer.querySelector('#audio-player-summary') as HTMLDivElement;
                 if(audioPlayerSummary) {
                     audioPlayerSummary.innerText = summary;
                 }
@@ -68,5 +68,5 @@ export class AudioPlayer {
 }
 
 export const createAudioPlayer = (audioContainerID: string, defaultSource?: string): AudioPlayer => {
-    return new AudioPlayer({ ContainerID: audioContainerID, DefaultSource: defaultSource });
+    return new AudioPlayer({ ContainerID: audioContainerID, DefaultSource: defaultSource as string });
 };
